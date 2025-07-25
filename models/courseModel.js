@@ -31,7 +31,7 @@ const courseSchema = new Schema(
     },
     lectures: [
       {
-        titile: String,
+        title: String,
         description: String,
         lecture: {
           public_id: {

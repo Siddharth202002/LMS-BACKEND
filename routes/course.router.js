@@ -12,6 +12,7 @@ import {
   deleteCourse,
   updateCourse,
   addLectureToCourseById,
+  deleteLecture,
 } from "../controllers/course.controller.js";
 const courseRouter = Router();
 
@@ -29,7 +30,9 @@ courseRouter
   .route("/:id")
   .get(isloogedIn, authorizeSubscriber, getLecturesByCourseId)
   .put(isloogedIn, autorizeRoles("ADMIN"), updateCourse)
-  .delete(isloogedIn, autorizeRoles("ADMIN"), deleteCourse)
+
+  .delete(isloogedIn, autorizeRoles("ADMIN"), deleteLecture)
+
   .post(
     isloogedIn,
     autorizeRoles("ADMIN"),
