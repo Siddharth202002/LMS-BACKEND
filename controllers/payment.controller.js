@@ -4,6 +4,7 @@ import { razorpay } from "../server.js";
 import crypto from "crypto";
 import Payment from "../models/payment.model.js";
 import userRouter from "../routes/user.router.js";
+import { log } from "console";
 
 const getRazorpayApiKey = async (req, res, next) => {
   try {
@@ -110,13 +111,14 @@ const verifySubscription = async (req, res, next) => {
 };
 const allPayments = async (req, res, next) => {
   try {
-    const { count } = req.query;
+    const count = req.query.count;
     const subscription = await razorpay.subscriptions.all({
-      count: count | 10,
+      count: Number(count) || 10, // Using a safer way to set the default
     });
 
     const all_payments = subscription.items;
-    // console.log(all_payments);
+    console.log("hellow");
+
     const monthsOfAllPayments = new Array(12);
     let start = 0;
 
@@ -125,7 +127,6 @@ const allPayments = async (req, res, next) => {
 
       const date = new Date(timeStamp);
       const month = date.getMonth();
-      // console.log(month);
 
       monthsOfAllPayments[start] = month;
       start += 1;
