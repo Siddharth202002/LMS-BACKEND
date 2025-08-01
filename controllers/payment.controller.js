@@ -1,6 +1,6 @@
 import AppError from "../utils/error.util.js";
 import User from "../models/userModel.js";
-import { razorpay } from "../server.js";
+import { razorpay } from "../api/index.js";
 import crypto from "crypto";
 import Payment from "../models/payment.model.js";
 import userRouter from "../routes/user.router.js";
