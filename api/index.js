@@ -2,7 +2,6 @@ import app from "../app.js";
 import Razorpay from "razorpay";
 import cloudinary from "cloudinary";
 import connection from "../config/config.js";
-import serverless from "serverless-http";
 
 // Cloudinary config
 cloudinary.v2.config({
@@ -17,17 +16,19 @@ export const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_SECRET,
 });
 
-// DB connection (ensure it's not reconnecting on every invocation)
+// DB connection - Your logic here is good! It prevents reconnecting on every request.
 let isConnected = false;
 const connectOnce = async () => {
   if (!isConnected) {
     await connection();
     isConnected = true;
-    console.log("Connected to DB");
+    // You can remove the console.log for production if you want
+    console.log("Connected to mongoDB atlas");
   }
 };
 
+// Establish connection before handling requests
 await connectOnce();
 
-// Export serverless handler
-export const handler = serverless(app);
+// ✅ Export the Express app as the default export
+export default app;
