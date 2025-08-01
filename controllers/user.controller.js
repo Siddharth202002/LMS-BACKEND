@@ -10,6 +10,7 @@ const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000,
   httpOnly: true,
   secure: process.env.SECURE_COOKIE === "true",
+  sameSite: "none",
 };
 const register = async (req, res, next) => {
   const { fullname, email, password } = req.body;
