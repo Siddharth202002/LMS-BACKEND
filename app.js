@@ -8,6 +8,7 @@ import courseRouter from "./routes/course.router.js";
 import paymentRouter from "./routes/payment.route.js";
 import errorMiddleware from "./middleWare/error.middleware.js";
 import adminRouter from "./routes/admin.router.js";
+import { log } from "console";
 
 const app = express();
 app.use(express.json());
@@ -32,4 +33,7 @@ app.all("*", (req, res) => {
   res.status(404).send("Page Not found");
 });
 app.use(errorMiddleware);
+app.listen(process.env.PORT, () => {
+  console.log("server connected ");
+});
 export default app;

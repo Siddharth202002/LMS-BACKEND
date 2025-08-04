@@ -4,13 +4,12 @@ import fs from "fs/promises";
 import coludinary from "cloudinary";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
-import { log } from "console";
 
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000,
   httpOnly: true,
   secure: process.env.SECURE_COOKIE === "true",
-  sameSite: "none",
+  secure: false,
 };
 const register = async (req, res, next) => {
   const { fullname, email, password } = req.body;
@@ -77,7 +76,7 @@ const login = async (req, res, next) => {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user || !user.comparePassword(password)) {
-      return next(new AppError("User not found!"));
+      return next(new AppError("User not found!", 401));
     }
     const token = await user.generateJWToken();
     res.cookie("token", token, cookieOptions);
@@ -132,7 +131,7 @@ const forgotPassword = async (req, res, next) => {
   const subject = `Reset password`;
   const message = `You can reset your password by clicking this <a href=${resetPasswordUrl} target="_blank"> URl </a>`;
 
-  console.log(resetPasswordUrl);
+  // console.log(resetPasswordUrl);
 
   try {
     await sendEmail(email, subject, message);

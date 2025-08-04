@@ -3,7 +3,8 @@ import AppError from "../utils/error.util.js";
 import User from "../models/userModel.js";
 
 const isloogedIn = async (req, res, next) => {
-  const { token } = req.cookies;
+  const cookies = req.cookies;
+  const { token } = cookies;
 
   if (!token) {
     return next(new AppError("Unauthenticated,please login again", 400));
