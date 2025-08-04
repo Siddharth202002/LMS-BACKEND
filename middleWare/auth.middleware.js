@@ -1,10 +1,12 @@
 import JWT from "jsonwebtoken";
 import AppError from "../utils/error.util.js";
 import User from "../models/userModel.js";
+import { log } from "console";
 
 const isloogedIn = async (req, res, next) => {
   const cookies = req.cookies;
   const { token } = cookies;
+  console.log(token);
 
   if (!token) {
     return next(new AppError("Unauthenticated,please login again", 400));
