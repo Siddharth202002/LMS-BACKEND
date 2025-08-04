@@ -11,16 +11,16 @@ import adminRouter from "./routes/admin.router.js";
 import { log } from "console";
 
 const app = express();
-app.use(express.json());
-app.use(cookieParser());
-app.use(urlencoded({ extended: true }));
-app.use(morgan("dev"));
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL],
     credentials: true,
   })
 );
+app.use(express.json());
+app.use(cookieParser());
+app.use(urlencoded({ extended: true }));
+app.use(morgan("dev"));
 app.use("/ping", (req, res) => {
   res.status(200).send("pong");
 });
