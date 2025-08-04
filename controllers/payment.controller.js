@@ -117,7 +117,6 @@ const allPayments = async (req, res, next) => {
     });
 
     const all_payments = subscription.items;
-    console.log("hellow");
 
     const monthsOfAllPayments = new Array(12);
     let start = 0;
